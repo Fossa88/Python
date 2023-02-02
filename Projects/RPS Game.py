@@ -29,17 +29,23 @@ print('Blue team has ' + Ranblue1)
 print('Red team has ' + Ranred1)
 if Ranblue1 == Ranred1:
     print("The game is a tie")
+
 if Ranblue1 == "Scissors":
     if Ranred1 == "Rock":
         print("The red team wins the game")
     elif Ranred1 == "Paper":
         print("The blue team wins the game")
-if Ranred1 == "Scissors":
-    if Ranblue1 == "Rock":
-        print("The blue team wins the game")
-    elif Ranblue1 == "Paper":
-        print("The red team wins the game")
 
-    
+if Ranblue1 == "Rock":
+    if Ranred1 == "Paper":
+        print("The red team wins the game")
+    elif Ranred1 == "Scissors":
+        print("The blue team wins the game")
+
+if Ranblue1 == "Paper":
+    if Ranred1 == "Scissors":
+        print("The red team wins the game")
+    elif Ranred1 == "Rock":
+        print("The blue team wins the game")
 
 print("=================================================")
