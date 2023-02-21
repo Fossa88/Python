@@ -43,6 +43,7 @@ def drawBoard2(Board):
 print("- - - - -")
 print("Welcome to the TicTacToe Game by Fossa")
 print("To Hear the Rules Input 1, To Start the Game Input 2 ")
+print(turn1)
 print("- - - - -")
 
 def Bruh(): 
@@ -53,6 +54,7 @@ def Bruh():
         for t in range(10):
                 drawBoard2(bruhBoard)
                 print('it is ' + turn + '\'s turn \nPlease input a number!')
+                print(count)
 
                 Turn = input()
 
@@ -73,38 +75,39 @@ def Bruh():
                                 drawBoard2(bruhBoard)
                                 print('\n' + turn + ' wins the game')
                                 break
-                        elif bruhBoard['1'] == bruhBoard['4'] == bruhBoard['7']:
+                        elif bruhBoard['1'] == bruhBoard['4'] == bruhBoard['7'] != ' ':
                                 drawBoard2(bruhBoard)
                                 print('\n' + turn + ' wins the game')
                                 break
-                        elif bruhBoard['2'] == bruhBoard['5'] == bruhBoard['8']:
+                        elif bruhBoard['2'] == bruhBoard['5'] == bruhBoard['8'] != ' ':
                                 drawBoard2(bruhBoard)
                                 print('\n' + turn + ' wins the game')
                                 break
-                        elif bruhBoard['4'] == bruhBoard['5'] == bruhBoard['6']:
+                        elif bruhBoard['4'] == bruhBoard['5'] == bruhBoard['6'] != ' ':
                                 drawBoard2(bruhBoard)
                                 print('\n' + turn + ' wins the game')
                                 break
-                        elif bruhBoard['3'] == bruhBoard['6'] == bruhBoard['9']:
+                        elif bruhBoard['3'] == bruhBoard['6'] == bruhBoard['9'] != ' ':
                                 drawBoard2(bruhBoard)
                                 print('\n' + turn + ' wins the game')
                                 break
-                        elif bruhBoard['3'] == bruhBoard['5'] == bruhBoard['7']:
+                        elif bruhBoard['3'] == bruhBoard['5'] == bruhBoard['7'] != ' ':
                                 drawBoard2(bruhBoard)
                                 print('\n' + turn + ' wins the game')
                                 break
-                        elif bruhBoard['7'] == bruhBoard['8'] == bruhBoard['9']:
+                        elif bruhBoard['7'] == bruhBoard['8'] == bruhBoard['9'] != ' ':
                                 drawBoard2(bruhBoard)
                                 print('\n' + turn + ' wins the game')
                                 break
                         if count == 9:
                                 print("\nIt's a Tie!!\n")
+
+                #turn swap            
+                if turn =='X':
+                        turn = 'O'
+                elif turn == 'O':
+                        turn = 'X'
                                 
-        #turn swap            
-        if turn =='X':
-            turn = 'O'
-        else:
-            turn = 'X'   
 
 
                 
