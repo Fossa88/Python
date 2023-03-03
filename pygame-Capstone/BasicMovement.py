@@ -1,27 +1,43 @@
 import pygame
 
+
+running = True
 background_colour = (255,200,100)
 (width, height) = (600, 400)
 surface = pygame.display.set_mode((width, height))
 surface.fill(background_colour)
 pygame.display.set_caption('Pygame Collision')
 
-  #Functions
-def Refresh():
-  pygame.display.flip()
+clock = pygame.time.Clock()
+fps_limit = 60
 
+colour = (50, 50 ,50)
+Xpos = 300
+Ypos = 200
+circle = pygame.draw.circle(surface, colour, (Xpos,Ypos), 20)
 
-# key = pygame.key.get_pressed()
-# if key[pygame.t]:
-#  Refresh()
-
-colour = (5, 50, 50)
-
-pygame.draw.circle(surface, colour, (300,200), 20, 0,)
-
-pygame.display.flip()
-running = True
 while running:
-  for event in pygame.event.get():
-    if event.type == pygame.QUIT:
-      running = False
+    clock.tick(fps_limit)
+
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                Ypos == Ypos + 10
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_s:
+                Ypos == Ypos - 10
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_d:
+                Xpos == Xpos + 10
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_a:
+                Xpos == Xpos - 10
+
+    surface.fill(background_colour)
+    pygame.draw.circle(surface, colour, (Xpos,Ypos), 20, 0,)
+
+    pygame.display.flip()
+
+pygame.quit()
