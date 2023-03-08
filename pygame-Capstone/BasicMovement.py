@@ -5,7 +5,7 @@ background_colour = (255,200,100)
 (width, height) = (600, 400)
 surface = pygame.display.set_mode((width, height))
 surface.fill(background_colour)
-pygame.display.set_caption('Pygame Collision')
+pygame.display.set_caption('Pygame Basic Movement')
 
 clock = pygame.time.Clock()
 fps_limit = 60
