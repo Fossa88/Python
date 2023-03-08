@@ -1,6 +1,5 @@
 import pygame
 
-
 running = True
 background_colour = (255,200,100)
 (width, height) = (600, 400)
@@ -23,17 +22,29 @@ while running:
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w:
-                Ypos == Ypos + 10
-        if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_s:
-                Ypos == Ypos - 10
+                Ypos = Ypos + 10
+                print('------------')
+                print('Xpos ' + str(Xpos))
+                print('Ypos ' + str(Ypos))
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                Ypos = Ypos - 10
+                print('------------')
+                print('Xpos ' + str(Xpos))
+                print('Ypos ' + str(Ypos))
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_d:
-                Xpos == Xpos + 10
+                Xpos = Xpos + 10
+                print('------------')
+                print('Xpos ' + str(Xpos))
+                print('Ypos ' + str(Ypos))
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_a:
-                Xpos == Xpos - 10
+                Xpos = Xpos - 10
+                print('------------')
+                print('Xpos ' + str(Xpos))
+                print('Ypos ' + str(Ypos))
 
     surface.fill(background_colour)
     pygame.draw.circle(surface, colour, (Xpos,Ypos), 20, 0,)
@@ -41,3 +52,4 @@ while running:
     pygame.display.flip()
 
 pygame.quit()
+
