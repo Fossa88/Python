@@ -1,9 +1,13 @@
+import math
+
 def Menu():
     print('===============================================')
     print('1 for Km to M, 2 for Reverse')
     print('3 for M to cm, 4 for Reverse')
     print('5 for cm to mm, 6 for Reverse')
     print('7 for Celcius to Fahrenheit, 8 for Reverse')
+    print('9 for Period of a pendulum')
+    print('10 for Length of a pendulum')
     print('===============================================')
 
 def KMtM():
@@ -62,6 +66,21 @@ def FtC():
     print('{} Celcius' .format(num15))
     num14 = ''
 
+def pendulum():
+    print('You selected Period of a Pendulum')
+    g = 9.8
+    d = float(input('Enter length of Pendulum in Meters'))
+    T = round(2*math.pi*(math.sqrt(d/g)), 2)
+    print('{} seconds' .format(T))
+    d = ''
+
+def pendulum2():
+    print('You selected Length of a Pendulum')
+    g = 9.8
+    T = float(input('Enter Period of the Pendulum in Seconds '))
+    L = round(g*(T/(2*math.pi))**2, 2)
+    print('{} Meters' .format(L))
+
 def Ifstates():
     if input1 == 1:
         KMtM()
@@ -79,7 +98,11 @@ def Ifstates():
         CtF()
     if input1 == 8:
         FtC()
-    if input1 >= 9:
+    if input1 == 9:
+        pendulum()
+    if input1 == 10:
+        pendulum2()
+    if input1 >= 11:
         print('Unidentified Number Please Try Again')
     
 
