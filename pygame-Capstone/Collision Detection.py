@@ -1,32 +1,38 @@
 import pygame
+import random
 pygame.init()
 
 running = True
-background_colour = (255,200,100)
 (width, height) = (600, 400)
 surface = pygame.display.set_mode((width, height))
-surface.fill(background_colour)
 pygame.display.set_caption('Pygame Collision')
 
 clock = pygame.time.Clock()
 fps_limit = 60
 
-    # Player Circle
-colour = (50, 50 ,50)
+    # Colours
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+BLUE = (0, 0, 255)
+AMARANTH = (159, 43, 104)
+
+    # Player Rectangle
+colour = BLUE
 Xpos = 300
 Ypos = 200
-player = pygame.draw.rect(surface, colour, pygame.Rect(30, 30, Xpos, Ypos))
+player = pygame.draw.rect(surface, colour, pygame.Rect(Xpos, Ypos, 30, 30))
 
     # Rectangle for collision detection
-colour1 = (255, 0, 0)
-Xpos1 = 500
-Ypos1 = 200
-circle = pygame.draw.rect(surface, colour1, pygame.Rect(60, 60, Xpos1, Ypos1))
+colour1 = GREEN
+Xpos1 = random.randint(100,300)
+Ypos1 = random.randint(100,500)
+Size = random.randint(1,100)
+Rectangle = pygame.draw.rect(surface, colour1, pygame.Rect(Xpos1, Ypos1, Size, Size))
 
 
 while running:
     clock.tick(fps_limit)
-
+            
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
@@ -54,15 +60,16 @@ while running:
                 print('------------')
                 print('Xpos ' + str(Xpos))
                 print('Ypos ' + str(Ypos))
+                
+        
+    if player.colliderect(Rectangle):
+        colour1 = RED
+    else:
+        colour1 = GREEN
 
-        collide = pygame.Rect.colliderect(circle, player)
-
-        if collide:
-            print('hello')
-
-    surface.fill(background_colour)
-    pygame.draw.rect(surface, colour, pygame.Rect(30, 30, Xpos, Ypos))
-    pygame.draw.rect(surface, colour1, pygame.Rect(60, 60, Xpos1, Ypos1))
+    surface.fill(AMARANTH)
+    player = pygame.draw.rect(surface, colour, pygame.Rect(Xpos, Ypos, 30, 30))
+    Rectangle = pygame.draw.rect(surface, colour1, pygame.Rect(Xpos1, Ypos1, Size, Size))
 
     pygame.display.flip()
 
