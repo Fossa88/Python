@@ -69,7 +69,7 @@ def FtC():
 def pendulum():
     print('You selected Period of a Pendulum')
     g = 9.8
-    d = float(input('Enter length of Pendulum in Meters'))
+    d = float(input('Enter length of Pendulum in Meters '))
     T = round(2*math.pi*(math.sqrt(d/g)), 2)
     print('{} seconds' .format(T))
     d = ''
