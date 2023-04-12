@@ -8,7 +8,7 @@ surface = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Title Screen')
 
 clock = pygame.time.Clock()
-fps_limit = 60
+fps_limit = 30
 
     # Colours
 WHITE = (255, 255, 255)
@@ -22,7 +22,7 @@ ColourST = AQUA
 ColourSetT = AQUA
 ColourQT = AQUA
 
-    #Object Creation
+    #Object
 text_font = pygame.font.SysFont("Roboto", 50)
 text_font2 = pygame.font.SysFont("Roboto", 75, bold = True)
 
@@ -45,6 +45,7 @@ while running:
 
     #Objects
     (Xpos1, Ypos1) = pygame.mouse.get_pos()
+    MoRect = pygame.draw.rect(surface, GREEN, (Xpos1, Ypos1, 2, 2))
     Cursor = pygame.draw.rect(surface, AQUA, (Xpos1, Ypos1, 5,5), 0)
     Dope = pygame.draw.rect(surface, AQUA, (206, 150, 188, 32))
     SettingsRectangle = pygame.draw.rect(surface, AQUA, (206, 200, 188, 32))
@@ -54,10 +55,22 @@ while running:
     draw_text("Title", text_font2, BLACK, width/2.9, 75)
     StartGame = draw_text("Start Game", text_font, BLACK, width/2.9, 150)
     draw_text(">                       <", text_font, ColourST, width/3.4, 148)
-    Settings = draw_text("Settings", text_font, BLACK, width/2.9, 200)
+    SettingsTemp = draw_text("Settings", text_font, BLACK, width/2.9, 200)
     draw_text(">                       <", text_font, ColourSetT, width/3.4, 198)
     Quit = draw_text("Quit", text_font, BLACK, width/2.9, 250)
     draw_text(">                       <", text_font, ColourQT, width/3.4, 248)
+
+    #Press Events
+    if event.type == pygame.MOUSEBUTTONDOWN:
+            MoRect = pygame.draw.rect(surface, GREEN, (Xpos1, Ypos1, 2, 2))
+            if MoRect.colliderect(Dope):
+                import CollisionDetection
+                CollisionDetection
+            if MoRect.colliderect(SettingsRectangle):
+                import SettingsTemp
+                SettingsTemp
+            if MoRect.colliderect(QuitRectangle):
+                pygame.quit()
 
     #Collisions
     if Cursor.colliderect(Dope):
