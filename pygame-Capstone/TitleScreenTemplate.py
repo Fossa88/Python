@@ -8,19 +8,13 @@ surface = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Title Screen')
 
 clock = pygame.time.Clock()
-fps_limit = 30
+fps_limit = 60
 
     # Colours
-WHITE = (255, 255, 255)
-BLACK = (0, 0, 0,)
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
-AMARANTH = (159, 43, 104)
-AQUA = (0, 255, 255)
-ColourST = AQUA
-ColourSetT = AQUA
-ColourQT = AQUA
+import col
+ColourST = col.AQUA
+ColourSetT = col.AQUA
+ColourQT = col.AQUA
 
     #Object
 text_font = pygame.font.SysFont("Roboto", 50)
@@ -41,52 +35,50 @@ while running:
             running = False
 
     #BG colour
-    surface.fill(AQUA)
+    surface.fill(col.AQUA)
 
     #Objects
     (Xpos1, Ypos1) = pygame.mouse.get_pos()
-    MoRect = pygame.draw.rect(surface, GREEN, (Xpos1, Ypos1, 2, 2))
-    Cursor = pygame.draw.rect(surface, AQUA, (Xpos1, Ypos1, 5,5), 0)
-    Dope = pygame.draw.rect(surface, AQUA, (206, 150, 188, 32))
-    SettingsRectangle = pygame.draw.rect(surface, AQUA, (206, 200, 188, 32))
-    QuitRectangle = pygame.draw.rect(surface, AQUA, (206, 250, 188, 32))
+    MoRect = pygame.draw.rect(surface, col.GREEN, (Xpos1, Ypos1, 2, 2))
+    Cursor = pygame.draw.rect(surface, col.AQUA, (Xpos1, Ypos1, 5,5), 0)
+    Dope = pygame.draw.rect(surface, col.AQUA, (206, 150, 188, 32))
+    SettingsRectangle = pygame.draw.rect(surface, col.AQUA, (206, 200, 188, 32))
+    QuitRectangle = pygame.draw.rect(surface, col.AQUA, (206, 250, 188, 32))
 
     #Text
-    draw_text("Title", text_font2, BLACK, width/2.9, 75)
-    StartGame = draw_text("Start Game", text_font, BLACK, width/2.9, 150)
+    draw_text("Title", text_font2, col.BLACK, width/2.9, 75)
+    StartGame = draw_text("Start Game", text_font, col.BLACK, width/2.9, 150)
     draw_text(">                       <", text_font, ColourST, width/3.4, 148)
-    SettingsTemp = draw_text("Settings", text_font, BLACK, width/2.9, 200)
+    SettingsTemp = draw_text("Settings", text_font, col.BLACK, width/2.9, 200)
     draw_text(">                       <", text_font, ColourSetT, width/3.4, 198)
-    Quit = draw_text("Quit", text_font, BLACK, width/2.9, 250)
+    Quit = draw_text("Quit", text_font, col.BLACK, width/2.9, 250)
     draw_text(">                       <", text_font, ColourQT, width/3.4, 248)
 
     #Press Events
     if event.type == pygame.MOUSEBUTTONDOWN:
-            MoRect = pygame.draw.rect(surface, GREEN, (Xpos1, Ypos1, 2, 2))
+            MoRect = pygame.draw.rect(surface, col.GREEN, (Xpos1, Ypos1, 2, 2))
             if MoRect.colliderect(Dope):
                 import CollisionDetection
-                CollisionDetection
             if MoRect.colliderect(SettingsRectangle):
                 import SettingsTemp
-                SettingsTemp
             if MoRect.colliderect(QuitRectangle):
                 pygame.quit()
 
     #Collisions
     if Cursor.colliderect(Dope):
-        ColourST = BLACK
+        ColourST = col.BLACK
     else:
-        ColourST = AQUA
+        ColourST = col.AQUA
 
     if Cursor.colliderect(SettingsRectangle):
-        ColourSetT = BLACK
+        ColourSetT = col.BLACK
     else:
-        ColourSetT = AQUA
+        ColourSetT = col.AQUA
 
     if Cursor.colliderect(QuitRectangle):
-        ColourQT = BLACK
+        ColourQT = col.BLACK
     else:
-        ColourQT = AQUA
+        ColourQT = col.AQUA
 
     pygame.display.flip()
 pygame.quit()

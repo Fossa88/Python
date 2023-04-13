@@ -8,7 +8,7 @@ surface = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Title Screen')
 
 clock = pygame.time.Clock()
-fps_limit = 30
+fps_limit = 60
 
     # Colours
 WHITE = (255, 255, 255)
@@ -18,9 +18,7 @@ RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 AMARANTH = (159, 43, 104)
 AQUA = (0, 255, 255)
-ColourST = AQUA
-ColourSetT = AQUA
-ColourQT = AQUA
+ColourRe = AQUA
 
     #Object
 text_font = pygame.font.SysFont("Roboto", 50)
@@ -46,14 +44,25 @@ while running:
     #Objects
     (Xpos1, Ypos1) = pygame.mouse.get_pos()
     MoRect = pygame.draw.rect(surface, GREEN, (Xpos1, Ypos1, 2, 2))
-    Cursor = pygame.draw.rect(surface, AQUA, (Xpos1, Ypos1, 5,5), 0)
+    Cursor = pygame.draw.rect(surface, AQUA, (Xpos1, Ypos1, 5, 5), 0)
+    ReturnBox = pygame.draw.rect(surface, AQUA, (120, 200, 400, 32))
 
     #Text
     draw_text("Settings", text_font2, BLACK, width/2.9, 75)
     StartGame = draw_text("Setting stuff to be dealt with later", text_font, BLACK, 2.9, 150)
+    ReturnGame = draw_text("Return to Main Menu", text_font, BLACK, width/4.2, 200)
+    draw_text(">                                       <", text_font, ColourRe, width/5, 198)
 
     if event.type == pygame.MOUSEBUTTONDOWN:
-        MoRect = pygame.draw.rect(surface, GREEN, (Xpos1, Ypos1, 2, 2))
+            MoRect = pygame.draw.rect(surface, GREEN, (Xpos1, Ypos1, 2, 2))
+    if MoRect.colliderect(ReturnBox):
+        import TitleScreenTemplate
+        
+    
+    if Cursor.colliderect(ReturnBox):
+        ColourRe = BLACK
+    else:
+        ColourRE = AQUA
 
     pygame.display.flip()
 pygame.quit()
