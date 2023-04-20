@@ -7,6 +7,8 @@ running = True
 surface = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Title Screen')
 
+bg = pygame.image.load("Sprites/TitleBG.png")
+
 clock = pygame.time.Clock()
 fps_limit = 60
 
@@ -58,7 +60,7 @@ while running:
     if event.type == pygame.MOUSEBUTTONDOWN:
             MoRect = pygame.draw.rect(surface, col.GREEN, (Xpos1, Ypos1, 2, 2))
             if MoRect.colliderect(Dope):
-                import CollisionDetection
+                import Chapter1
             if MoRect.colliderect(SettingsRectangle):
                 import SettingsTemp
             if MoRect.colliderect(QuitRectangle):
