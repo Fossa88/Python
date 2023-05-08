@@ -20,6 +20,7 @@ AMARANTH = (159, 43, 104)
 colour = BLUE
 Xpos = 300
 Ypos = 200
+Vel = 2
 player = pygame.draw.rect(surface, colour, pygame.Rect(Xpos, Ypos, 30, 30))
 
     # Rectangle for collision detection
@@ -36,30 +37,20 @@ while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_s:
-                Ypos = Ypos + 10
-                print('------------')
-                print('Xpos ' + str(Xpos))
-                print('Ypos ' + str(Ypos))
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_w:
-                Ypos = Ypos - 10
-                print('------------')
-                print('Xpos ' + str(Xpos))
-                print('Ypos ' + str(Ypos))
-        if event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_d:
-                Xpos = Xpos + 10
-                print('------------')
-                print('Xpos ' + str(Xpos))
-                print('Ypos ' + str(Ypos))
-        if event.type == pygame.KEYDOWN:
-            while event.key == pygame.K_a:
-                Xpos = Xpos - 10
-                print('------------')
-                print('Xpos ' + str(Xpos))
-                print('Ypos ' + str(Ypos))
+
+    keys = pygame.key.get_pressed()
+    
+    if keys[pygame.K_a]:
+        Xpos -= Vel
+
+    if keys[pygame.K_d]:
+        Xpos += Vel
+
+    if keys[pygame.K_w]:
+        Ypos -= Vel
+
+    if keys[pygame.K_s]:
+        Ypos += Vel
                 
         
     if player.colliderect(Rectangle):
