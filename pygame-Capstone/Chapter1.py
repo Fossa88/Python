@@ -1,6 +1,7 @@
 import pygame
 import random
 pygame.init()
+import time
 
 running = True
 (width, height) = (600, 400)
@@ -17,7 +18,7 @@ def Gurtrude(X,Y):
     surface.blit(GurtrudeImg, (X,Y))    
 Xpos = 150
 Ypos = 150
-Vel = 5
+Vel = 2
 
     # Colours
 GREEN = (0, 255, 0)
@@ -65,13 +66,17 @@ while running:
     if keys[pygame.K_s]:
         Ypos += Vel
         GurtrudeImg = pygame.image.load('GurtrudeImgs/GurtrudeDown.png')
-    if Xpos < -0:
+    if Xpos < 0:
         Xpos = 1 
-    if Xpos > 590:
-        Xpos = 589
-
+    if Xpos > 570:
+        Xpos = 569
+    if Ypos < 0:
+        Ypos = 1
+    if Ypos > 370:
+        Ypos = 369
                 
         #collisions
+
 
     surface.fill(BaseCol)
     Rectangle = pygame.draw.rect(surface, colour1, pygame.Rect(Xpos1, Ypos1, Size, Size))
