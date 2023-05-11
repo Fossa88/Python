@@ -10,22 +10,53 @@ pygame.display.set_caption('Chapter 1: The intro')
 
 clock = pygame.time.Clock()
 fps_limit = 60
-    #functions
+
+    #classes
+class GurtrudeClass(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load('GurtrudeImgs/GurtrudeDown.png').convert()
+        self.rect = self.image.get_rect()
+        self.rect.x = 150
+        self.rect.y = 150
+        self.velocity = 2
+
+    def x(self):
+        return self.rect.x
+    def y(self):
+        return self.rect.y
+    def velocity(self):
+        return self.velocity
+
+class RockClass(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.image.load('Textures/Rock1.png').convert()
+        self.rect = self.image.get_rect()
+        self.rect.x = 150
+        self.rect.y = 150
+
+Gurtrude1 = GurtrudeClass()
+Rock1 = RockClass()
+
+Gurtrude_group = pygame.sprite.GroupSingle(Gurtrude1)
+Rock1_group = pygame.sprite.GroupSingle(Rock1)
+
+    #variables
 
     #Img stuff
-GurtrudeImg = pygame.image.load('GurtrudeImgs/GurtrudeDown.png')
-def Gurtrude(X,Y):
-    surface.blit(GurtrudeImg, (X,Y))    
-Xpos = 150
-Ypos = 150
-Vel = 2
+# GurtrudeImg = pygame.image.load('GurtrudeImgs/GurtrudeDown.png')
+# def Gurtrude(X,Y):
+#    surface.blit(GurtrudeImg, (X,Y))    
+#Xpos = 150
+#Ypos = 150
+#Vel = 2
 
     # Colours
 GREEN = (0, 255, 0)
 RED = (255, 0, 0)
 BLUE = (0, 0, 255)
 AMARANTH = (159, 43, 104)
-BaseCol = AMARANTH
 
     # Rectangle for collision detection
 colour1 = GREEN
@@ -37,13 +68,6 @@ Rectangle = pygame.draw.rect(surface, colour1, pygame.Rect(Xpos1, Ypos1, Size, S
 
 
     #Big Collision functions block
-def CollisionCheck(Sprite1, Sprite2):
-    Bool = pygame.sprite.collide_rect(Sprite1, Sprite2)
-    if Bool == True:
-        BaseCol = BLUE
-
-def MoveLeft():
-    Xpos == Xpos + 2
 
 while running:
     clock.tick(fps_limit)
@@ -55,33 +79,35 @@ while running:
         #Movement
     keys = pygame.key.get_pressed()
     if keys[pygame.K_a]:
-        Xpos -= Vel
-        GurtrudeImg = pygame.image.load('GurtrudeImgs/GurtrudeLeft.png')
+        Gurtrude1.rect.x -= GurtrudeClass.velocity()
+        Gurtrude1.image = pygame.image.load('GurtrudeImgs/GurtrudeLeft.png')
     if keys[pygame.K_d]:
-        Xpos += Vel
-        GurtrudeImg = pygame.image.load('GurtrudeImgs/GurtrudeRight.png')
+        Gurtrude1.rect.x += GurtrudeClass.velocity()
+        Gurtrude1.image = pygame.image.load('GurtrudeImgs/GurtrudeRight.png')
     if keys[pygame.K_w]:
-        Ypos -= Vel
-        GurtrudeImg = pygame.image.load('GurtrudeImgs/GurtrudeUp.png')
+        Gurtrude1.rect.y -= GurtrudeClass.velocity()
+        Gurtrude1.image = pygame.image.load('GurtrudeImgs/GurtrudeUp.png')
     if keys[pygame.K_s]:
-        Ypos += Vel
-        GurtrudeImg = pygame.image.load('GurtrudeImgs/GurtrudeDown.png')
-    if Xpos < 0:
-        Xpos = 1 
-    if Xpos > 570:
-        Xpos = 569
-    if Ypos < 0:
-        Ypos = 1
-    if Ypos > 370:
-        Ypos = 369
+        Gurtrude1.rect.y += GurtrudeClass.velocity()
+        Gurtrude1.image = pygame.image.load('GurtrudeImgs/GurtrudeDown.png')
+    if Gurtrude1.rect.x < 0:
+        Gurtrude1.rect.x = 1 
+    if Gurtrude1.rect.x > 570:
+        Gurtrude1.rect.x = 569
+    if Gurtrude1.rect.y < 0:
+        Gurtrude1.rect.y = 1
+    if Gurtrude1.rect.y > 370:
+        Gurtrude1.rect.y = 369
                 
         #collisions
 
 
-    surface.fill(BaseCol)
+    surface.fill(BLUE)
     Rectangle = pygame.draw.rect(surface, colour1, pygame.Rect(Xpos1, Ypos1, Size, Size))
+
         #Img blits
-    Gurtrude(Xpos,Ypos) 
+    surface.blit(Rock1.image, Rock1.rect)
+    surface.blit(Gurtrude1.image, Gurtrude1.rect)
 
     pygame.display.flip()
 
