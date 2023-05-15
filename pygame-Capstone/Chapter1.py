@@ -92,13 +92,20 @@ while running:
         Gurtrude1.rect.y = 1
     if Gurtrude1.rect.y > 370:
         Gurtrude1.rect.y = 369
-                
-        #collisions
-    if pygame.sprite.spritecollide(Gurtrude1, Rock1_group, False):
-        # Collision detected
-        colour1 = RED
+    if keys[pygame.K_LSHIFT]:
+        Gurtrude1.velocity = 4
     else:
-        colour1 = GREEN
+        Gurtrude1.velocity = 2
+                
+        #Big Collision Block
+
+if pygame.sprite.spritecollide(Gurtrude1, Rock1_group, False):
+    # Collision detected
+    colour1 = RED
+elif pygame.sprite.spritecollide(Gurtrude1, Rock2_group, False):
+    colour1 = AMARANTH
+else:
+    colour1 = GREEN
 
 
     surface.fill(BLUE)
@@ -108,7 +115,7 @@ while running:
     surface.blit(Rock1.image, Rock1.rect)
     surface.blit(Rock2.image, Rock2.rect)
     surface.blit(Gurtrude1.image, Gurtrude1.rect)
-    
+
     pygame.display.flip()
 
 pygame.quit()
