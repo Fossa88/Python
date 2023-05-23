@@ -21,7 +21,9 @@ TreeTrollFace = pygame.image.load('textures/TreeTop.png')
 def TreeTop(x,y):
     surface.blit(TreeTrollFace, (x,y))
 
-
+Inventory_Sprite = pygame.image.load('textures/Inventory_sprite.png')
+def InventorySprite(x,y):
+    surface.blit(Inventory_Sprite, (x,y))
 
 # Classes
 class GurtrudeClass(pygame.sprite.Sprite):
@@ -149,7 +151,7 @@ while running:
     # Movement Key Get
     keys = pygame.key.get_pressed()
 
-    # Console log key
+    # Game Keys
     if keys[pygame.K_k]:
         print('Rock1 XY Pos:', Rock1.rect.x, Rock1.rect.y)
         print('Rock2 XY Pos:', Rock2.rect.x, Rock2.rect.y)
@@ -161,6 +163,11 @@ while running:
         Gurtrude1.velocity = 3
     else:
         Gurtrude1.velocity = 2
+
+    if keys[pygame.K_e]:
+        InventorySprite(300,500)
+    else:
+        InventorySprite(-1000, -10000)
 
     # Gurtrude world boundaries
     if Gurtrude1.rect.x < 0:
@@ -187,8 +194,8 @@ while running:
     TreeTop(500,0)
     TreeTop(300,-250)
     TreeTop(120, 0)
-    TreeTop(50, -270)
-
+    TreeTop(50,-270)
+    InventorySprite(302, 300)
 
     pygame.display.flip()
 
