@@ -163,7 +163,9 @@ while running:
 
     # Inventory visibility
     if keys[pygame.K_e]:
+        time.sleep(0.15)
         inventory_visible = not inventory_visible
+
 
     # Normal key stuff
     if keys[pygame.K_LSHIFT]:
@@ -185,6 +187,7 @@ while running:
     Gurtrude1.update([Rock1, Rock2], [TreeBottom1, TreeBottom2, TreeBottom3, TreeBottom4])
 
     # Image blits
+    
     Background(0, 0)
     surface.blit(Rock1.image, Rock1.rect)
     surface.blit(Rock2.image, Rock2.rect)
