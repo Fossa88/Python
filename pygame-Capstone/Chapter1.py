@@ -18,12 +18,12 @@ def Background(x, y):
     surface.blit(BG, (x, y))
 
 TreeTrollFace = pygame.image.load('textures/TreeTop.png')
-def TreeTop(x,y):
-    surface.blit(TreeTrollFace, (x,y))
+def TreeTop(x, y):
+    surface.blit(TreeTrollFace, (x, y))
 
 Inventory_Sprite = pygame.image.load('textures/Inventory_sprite.png')
-def InventorySprite(x,y):
-    surface.blit(Inventory_Sprite, (x,y))
+def InventorySprite(x, y):
+    surface.blit(Inventory_Sprite, (x, y))
 
 # Classes
 class GurtrudeClass(pygame.sprite.Sprite):
@@ -118,7 +118,7 @@ class TreeClass(pygame.sprite.Sprite):
     def y(self):
         return self.rect.y
 
-    # Placing teh obkecys
+# Initialize game objects
 Gurtrude1 = GurtrudeClass(2, 200)
 Rock1 = RockClass(200, 50)
 Rock2 = RockClass(300, 300)
@@ -134,6 +134,9 @@ TreeBottom1_group = pygame.sprite.GroupSingle(TreeBottom1)
 TreeBottom2_group = pygame.sprite.GroupSingle(TreeBottom2)
 TreeBottom3_group = pygame.sprite.GroupSingle(TreeBottom3)
 TreeBottom4_group = pygame.sprite.GroupSingle(TreeBottom4)
+
+# inventory sprite visibility
+inventory_visible = False
 
 # Colors
 GREEN = (0, 255, 0)
@@ -158,16 +161,15 @@ while running:
         print('TreeBottom1 XY Pos:', TreeBottom1.rect.x, TreeBottom1.rect.y)
         print('Gurtrude XY Pos:', Gurtrude1.rect.x, Gurtrude1.rect.y)
 
-    # Normal key stuff lmao
+    # Inventory visibility
+    if keys[pygame.K_e]:
+        inventory_visible = not inventory_visible
+
+    # Normal key stuff
     if keys[pygame.K_LSHIFT]:
         Gurtrude1.velocity = 3
     else:
         Gurtrude1.velocity = 2
-
-    if keys[pygame.K_e]:
-        InventorySprite(300,500)
-    else:
-        InventorySprite(-1000, -10000)
 
     # Gurtrude world boundaries
     if Gurtrude1.rect.x < 0:
@@ -191,12 +193,15 @@ while running:
     surface.blit(TreeBottom3.image, TreeBottom3.rect)
     surface.blit(TreeBottom4.image, TreeBottom4.rect)
     surface.blit(Gurtrude1.image, Gurtrude1.rect)
-    TreeTop(500,0)
-    TreeTop(300,-250)
+    TreeTop(500, 0)
+    TreeTop(300, -250)
     TreeTop(120, 0)
-    TreeTop(50,-270)
-    InventorySprite(302, 300)
-
+    TreeTop(50, -270)
+    
+    # Draw inventory sprite if visible
+    if inventory_visible:
+        InventorySprite(296, 300)
+    
     pygame.display.flip()
 
 pygame.quit()
