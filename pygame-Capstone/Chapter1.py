@@ -11,6 +11,7 @@ pygame.display.set_caption('Chapter 1: The intro')
 # Variables
 clock = pygame.time.Clock()
 fps_limit = 60
+Constant = 1
 
 # Image def's
 BG = pygame.image.load('textures/Chap1Room1.png')
@@ -24,7 +25,7 @@ def TreeTop(x, y):
 Inventory_Sprite = pygame.image.load('textures/Inventory_sprite.png')
 def InventorySprite(x, y):
     surface.blit(Inventory_Sprite, (x, y))
-
+    
 # Classes
 class GurtrudeClass(pygame.sprite.Sprite):
     def __init__(self,x,y):
@@ -88,7 +89,6 @@ class GurtrudeClass(pygame.sprite.Sprite):
     def velocity(self):
         return self.velocity
 
-
 class RockClass(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -103,7 +103,6 @@ class RockClass(pygame.sprite.Sprite):
     def y(self):
         return self.rect.y
 
-
 class TreeClass(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -117,8 +116,18 @@ class TreeClass(pygame.sprite.Sprite):
 
     def y(self):
         return self.rect.y
+    
+# inventory sprite visibility
+inventory_visible = False
 
-# Initialize game objects
+# Colors
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+BLUE = (0, 0, 255)
+AMARANTH = (159, 43, 104)
+WHITE = (255,255,255)
+
+#Room1
 Gurtrude1 = GurtrudeClass(2, 200)
 Rock1 = RockClass(200, 50)
 Rock2 = RockClass(300, 300)
@@ -135,17 +144,41 @@ TreeBottom2_group = pygame.sprite.GroupSingle(TreeBottom2)
 TreeBottom3_group = pygame.sprite.GroupSingle(TreeBottom3)
 TreeBottom4_group = pygame.sprite.GroupSingle(TreeBottom4)
 
-# inventory sprite visibility
-inventory_visible = False
+#Room2
+Gurtrude1 = GurtrudeClass(2, 200)
 
-# Colors
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
-BLUE = (0, 0, 255)
-AMARANTH = (159, 43, 104)
+#Room3
+
+#Room4
+
+#Room5
+
+#Room6
+
+#Room7?
+
+# Room Def's (aka big mother fucker of code bruhge).
+def Room1():
+    Background(0, 0)
+    surface.blit(Rock1.image, Rock1.rect)
+    surface.blit(Rock2.image, Rock2.rect)
+    surface.blit(TreeBottom1.image, TreeBottom1.rect)
+    surface.blit(TreeBottom2.image, TreeBottom2.rect)
+    surface.blit(TreeBottom3.image, TreeBottom3.rect)
+    surface.blit(TreeBottom4.image, TreeBottom4.rect)
+    surface.blit(Gurtrude1.image, Gurtrude1.rect)
+    TreeTop(500, 0)
+    TreeTop(300, -250)
+    TreeTop(120, 0)
+    TreeTop(50, -270)
+    
+def Room2():
+    Background(0 , 0)
+    surface.blit(Gurtrude1.image, Gurtrude1.rect)
 
 while running:
     clock.tick(fps_limit)
+    surface.fill(WHITE)
 
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -156,16 +189,16 @@ while running:
 
     # Game Keys
     if keys[pygame.K_k]:
-        print('Rock1 XY Pos:', Rock1.rect.x, Rock1.rect.y)
-        print('Rock2 XY Pos:', Rock2.rect.x, Rock2.rect.y)
-        print('TreeBottom1 XY Pos:', TreeBottom1.rect.x, TreeBottom1.rect.y)
         print('Gurtrude XY Pos:', Gurtrude1.rect.x, Gurtrude1.rect.y)
+    if keys[pygame.K_i]:
+        Constant += 1
+        time.sleep(1)
+        print(Constant)
 
     # Inventory visibility
     if keys[pygame.K_e]:
         time.sleep(0.15)
         inventory_visible = not inventory_visible
-
 
     # Normal key stuff
     if keys[pygame.K_LSHIFT]:
@@ -187,19 +220,10 @@ while running:
     Gurtrude1.update([Rock1, Rock2], [TreeBottom1, TreeBottom2, TreeBottom3, TreeBottom4])
 
     # Image blits
-    
-    Background(0, 0)
-    surface.blit(Rock1.image, Rock1.rect)
-    surface.blit(Rock2.image, Rock2.rect)
-    surface.blit(TreeBottom1.image, TreeBottom1.rect)
-    surface.blit(TreeBottom2.image, TreeBottom2.rect)
-    surface.blit(TreeBottom3.image, TreeBottom3.rect)
-    surface.blit(TreeBottom4.image, TreeBottom4.rect)
-    surface.blit(Gurtrude1.image, Gurtrude1.rect)
-    TreeTop(500, 0)
-    TreeTop(300, -250)
-    TreeTop(120, 0)
-    TreeTop(50, -270)
+    if Constant == 1:
+        Room1()
+    elif Constant == 2:
+        Room2()
     
     # Draw inventory sprite if visible
     if inventory_visible:
