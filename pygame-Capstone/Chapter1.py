@@ -14,9 +14,15 @@ fps_limit = 60
 Constant = 1
 
 # Image def's
-BG = pygame.image.load('textures/Chap1Room1.png')
-def Background(x, y):
-    surface.blit(BG, (x, y))
+    #Room Image Def's
+BG1 = pygame.image.load('textures/Chap1Room1.png')
+def Room1BG(x, y):
+    surface.blit(BG1, (x, y))
+
+BG2 = pygame.image.load('textures/Room2.png')
+def Room2BG():
+    surface.blit(BG2, (0, 0))
+
 
 TreeTrollFace = pygame.image.load('textures/TreeTop.png')
 def TreeTop(x, y):
@@ -80,6 +86,49 @@ class GurtrudeClass(pygame.sprite.Sprite):
                 if keys[pygame.K_s]:
                     self.rect.y -= self.velocity
 
+    def update1(self, bushes, trees):
+        
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_a]:
+            self.rect.x -= self.velocity
+            self.image = pygame.image.load('GurtrudeImgs/GurtrudeLeft.png')
+        if keys[pygame.K_d]:
+            self.rect.x += self.velocity
+            self.image = pygame.image.load('GurtrudeImgs/GurtrudeRight.png')
+        if keys[pygame.K_w]:
+            self.rect.y -= self.velocity
+            self.image = pygame.image.load('GurtrudeImgs/GurtrudeUp.png')
+        if keys[pygame.K_s]:
+            self.rect.y += self.velocity
+            self.image = pygame.image.load('GurtrudeImgs/GurtrudeDown.png')
+
+        self.hitbox.x = self.rect.x
+        self.hitbox.y = self.rect.y
+
+        # Collision detection with bushes
+        for bush in bushes:
+            if self.hitbox.colliderect(bush.rect):
+                if keys[pygame.K_a]:
+                    self.rect.x += self.velocity
+                if keys[pygame.K_d]:
+                    self.rect.x -= self.velocity
+                if keys[pygame.K_w]:
+                    self.rect.y += self.velocity
+                if keys[pygame.K_s]:
+                    self.rect.y -= self.velocity
+
+        # Collision detection with trees
+        for tree in trees:
+            if self.hitbox.colliderect(tree.rect):
+                if keys[pygame.K_a]:
+                    self.rect.x += self.velocity
+                if keys[pygame.K_d]:
+                    self.rect.x -= self.velocity
+                if keys[pygame.K_w]:
+                    self.rect.y += self.velocity
+                if keys[pygame.K_s]:
+                    self.rect.y -= self.velocity
+
     def x(self):
         return self.rect.x
 
@@ -88,6 +137,20 @@ class GurtrudeClass(pygame.sprite.Sprite):
 
     def velocity(self):
         return self.velocity
+
+class BushClass(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = pygame.image.load('Textures/Bush.png').convert_alpha()
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def x(self):
+        return self.rect.x
+
+    def y(self):
+        return self.rect.y
 
 class RockClass(pygame.sprite.Sprite):
     def __init__(self, x, y):
@@ -103,6 +166,7 @@ class RockClass(pygame.sprite.Sprite):
     def y(self):
         return self.rect.y
 
+
 class TreeClass(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -116,7 +180,7 @@ class TreeClass(pygame.sprite.Sprite):
 
     def y(self):
         return self.rect.y
-    
+
 # inventory sprite visibility
 inventory_visible = False
 
@@ -145,7 +209,19 @@ TreeBottom3_group = pygame.sprite.GroupSingle(TreeBottom3)
 TreeBottom4_group = pygame.sprite.GroupSingle(TreeBottom4)
 
 #Room2
-Gurtrude1 = GurtrudeClass(2, 200)
+Gurtrude2 = GurtrudeClass(2, 200)
+Bush1 = BushClass(140, 365)
+Bush2 = BushClass(363, 365)
+Bush3 = BushClass(222, 160)
+TreeBottom5 = TreeClass(44, 305)
+TreeBottom6 = TreeClass(503, 305)
+
+Gurtrude2_group = pygame.sprite.GroupSingle(Gurtrude2)
+Bush1_group = pygame.sprite.GroupSingle(Bush1)
+Bush2_group = pygame.sprite.GroupSingle(Bush2)
+Bush3_group = pygame.sprite.GroupSingle(Bush3)
+TreeBottom5_group = pygame.sprite.GroupSingle(TreeBottom5)
+TreeBottom6_group = pygame.sprite.GroupSingle(TreeBottom6)
 
 #Room3
 
@@ -158,8 +234,10 @@ Gurtrude1 = GurtrudeClass(2, 200)
 #Room7?
 
 # Room Def's (aka big mother fucker of code bruhge).
+    # Room1
 def Room1():
-    Background(0, 0)
+    Gurtrude1.update([Rock1, Rock2], [TreeBottom1, TreeBottom2, TreeBottom3, TreeBottom4])
+    Room1BG(0, 0)
     surface.blit(Rock1.image, Rock1.rect)
     surface.blit(Rock2.image, Rock2.rect)
     surface.blit(TreeBottom1.image, TreeBottom1.rect)
@@ -169,12 +247,22 @@ def Room1():
     surface.blit(Gurtrude1.image, Gurtrude1.rect)
     TreeTop(500, 0)
     TreeTop(300, -250)
-    TreeTop(120, 0)
+    TreeTop(120, 0) 
     TreeTop(50, -270)
-    
+
+    #Room2
 def Room2():
-    Background(0 , 0)
+    Gurtrude1.update1([Bush1, Bush2, Bush3], [TreeBottom5, TreeBottom6])
+    Room2BG()
     surface.blit(Gurtrude1.image, Gurtrude1.rect)
+    surface.blit(Bush1.image, Bush1.rect)
+    surface.blit(Bush2.image, Bush2.rect)
+    surface.blit(Bush3.image, Bush3.rect)
+    surface.blit(TreeBottom5.image, TreeBottom5.rect)
+    surface.blit(TreeBottom6.image, TreeBottom6.rect)
+    TreeTop(44, 0)
+    TreeTop(503, 0)
+
 
 while running:
     clock.tick(fps_limit)
@@ -190,8 +278,13 @@ while running:
     # Game Keys
     if keys[pygame.K_k]:
         print('Gurtrude XY Pos:', Gurtrude1.rect.x, Gurtrude1.rect.y)
+
     if keys[pygame.K_i]:
         Constant += 1
+        time.sleep(1)
+        print(Constant)
+    if keys[pygame.K_u]:
+        Constant -= 1
         time.sleep(1)
         print(Constant)
 
@@ -215,9 +308,6 @@ while running:
         Gurtrude1.rect.y = 1
     if Gurtrude1.rect.y > 370:
         Gurtrude1.rect.y = 369
-
-    # Collision detection
-    Gurtrude1.update([Rock1, Rock2], [TreeBottom1, TreeBottom2, TreeBottom3, TreeBottom4])
 
     # Image blits
     if Constant == 1:
