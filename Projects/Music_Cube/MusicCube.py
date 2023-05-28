@@ -19,9 +19,9 @@ BLUE = (0, 0, 255)
 AMARANTH = (159, 43, 104)
 
 # BG
-IceHockey = pygame.image.load('Background505.png')
+Ineedavariablename = pygame.image.load('Background505.png')
 def BG():
-    surface.blit(IceHockey, (0, 0))
+    surface.blit(Ineedavariablename, (0, 0))
 
 # Classes
 class cube(pygame.sprite.Sprite):
