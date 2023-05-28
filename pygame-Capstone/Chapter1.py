@@ -15,14 +15,29 @@ Constant = 1
 
 # Image def's
     #Room Image Def's
-BG1 = pygame.image.load('textures/Chap1Room1.png')
+BG1 = pygame.image.load('textures/Room1.png')
 def Room1BG(x, y):
     surface.blit(BG1, (x, y))
 
 BG2 = pygame.image.load('textures/Room2.png')
 def Room2BG():
     surface.blit(BG2, (0, 0))
-
+    
+BG3 = pygame.image.load('textures/Room3.png')
+def Room3BG():
+    surface.blit(BG3, (0, 0))
+    
+BG4 = pygame.image.load('textures/Room4.png')
+def Room4BG():
+    surface.blit(BG4, (0, 0))
+    
+BG5 = pygame.image.load('textures/Room5.png')
+def Room5BG():
+    surface.blit(BG5, (0, 0))
+    
+BG6 = pygame.image.load('textures/Room6.png')
+def Room6BG():
+    surface.blit(BG6, (0, 0))
 
 TreeTrollFace = pygame.image.load('textures/TreeTop.png')
 def TreeTop(x, y):
@@ -166,7 +181,6 @@ class RockClass(pygame.sprite.Sprite):
     def y(self):
         return self.rect.y
 
-
 class TreeClass(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__()
@@ -263,7 +277,22 @@ def Room2():
     TreeTop(44, 0)
     TreeTop(503, 0)
 
-
+def Room3():
+    Gurtrude1.update1([Bush1, Bush2, Bush3], [TreeBottom5, TreeBottom6])
+    Room3BG()
+    
+def Room4():
+    Gurtrude1.update1([Bush1, Bush2, Bush3], [TreeBottom5, TreeBottom6])
+    Room4BG()
+    
+def Room5():
+    Gurtrude1.update1([Bush1, Bush2, Bush3], [TreeBottom5, TreeBottom6])
+    Room5BG()
+    
+def Room6():
+    Gurtrude1.update1([Bush1, Bush2, Bush3], [TreeBottom5, TreeBottom6])
+    Room6BG()
+    
 while running:
     clock.tick(fps_limit)
     surface.fill(WHITE)
@@ -314,6 +343,14 @@ while running:
         Room1()
     elif Constant == 2:
         Room2()
+    elif Constant == 3:
+        Room3()
+    elif Constant == 4:
+        Room4()
+    elif Constant == 5:
+        Room5()
+    elif Constant == 6:
+        Room6()
     
     # Draw inventory sprite if visible
     if inventory_visible:
