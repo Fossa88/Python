@@ -238,7 +238,21 @@ TreeBottom5_group = pygame.sprite.GroupSingle(TreeBottom5)
 TreeBottom6_group = pygame.sprite.GroupSingle(TreeBottom6)
 
 #Room3
+Bush4 = BushClass(350, 325)
+Bush5 = BushClass(545, 262)
+Bush6 = BushClass(545, 90)
+Bush7 = BushClass(160, -45)
+Bush8 = BushClass(357, -45)
+Bush9 = BushClass(170, 325)
+TreeBottom7 = TreeClass(30, 300)
 
+Bush4_group = pygame.sprite.GroupSingle(Bush4)
+Bush5_group = pygame.sprite.GroupSingle(Bush5)
+Bush6_group = pygame.sprite.GroupSingle(Bush6)
+Bush7_group = pygame.sprite.GroupSingle(Bush7)
+Bush8_group = pygame.sprite.GroupSingle(Bush8)
+Bush9_group = pygame.sprite.GroupSingle(Bush9)
+TreeBottom7_group = pygame.sprite.GroupSingle(TreeBottom7)
 #Room4
 
 #Room5
@@ -278,8 +292,17 @@ def Room2():
     TreeTop(503, 0)
 
 def Room3():
-    Gurtrude1.update1([Bush1, Bush2, Bush3], [TreeBottom5, TreeBottom6])
+    Gurtrude1.update1([Bush7, Bush8, Bush9, Bush4, Bush5, Bush6], [TreeBottom7])
     Room3BG()
+    surface.blit(Gurtrude1.image, Gurtrude1.rect)
+    surface.blit(Bush7.image, Bush7.rect)
+    surface.blit(Bush8.image, Bush8.rect)
+    surface.blit(Bush9.image, Bush9.rect)
+    surface.blit(Bush4.image, Bush4.rect)
+    surface.blit(Bush5.image, Bush5.rect)
+    surface.blit(Bush6.image, Bush6.rect)
+    surface.blit(TreeBottom7.image, TreeBottom7.rect)
+    TreeTop(30, 0)
     
 def Room4():
     Gurtrude1.update1([Bush1, Bush2, Bush3], [TreeBottom5, TreeBottom6])
