@@ -238,13 +238,13 @@ TreeBottom5_group = pygame.sprite.GroupSingle(TreeBottom5)
 TreeBottom6_group = pygame.sprite.GroupSingle(TreeBottom6)
 
 #Room3
-Bush4 = BushClass(350, 325)
-Bush5 = BushClass(545, 262)
-Bush6 = BushClass(545, 90)
+Bush4 = BushClass(350, 340)
+Bush5 = BushClass(545, 252)
+Bush6 = BushClass(545, 80)
 Bush7 = BushClass(160, -45)
 Bush8 = BushClass(357, -45)
-Bush9 = BushClass(170, 325)
-TreeBottom7 = TreeClass(30, 300)
+Bush9 = BushClass(160, 340)
+TreeBottom7 = TreeClass(30, 290)
 
 Bush4_group = pygame.sprite.GroupSingle(Bush4)
 Bush5_group = pygame.sprite.GroupSingle(Bush5)
