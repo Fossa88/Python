@@ -1,4 +1,6 @@
 import pygame
+from pygame import mixer
+mixer.init()
 import random
 pygame.init()
 import time
@@ -7,6 +9,13 @@ running = True
 (width, height) = (600, 400)
 surface = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Chapter 1: The intro')
+
+#Song Loads
+mixer.music.load('Soundtrack/Forest.mp3')
+
+mixer.music.set_volume(0.2)
+
+mixer.music.play()
 
 # Variables
 clock = pygame.time.Clock()
@@ -206,7 +215,7 @@ AMARANTH = (159, 43, 104)
 WHITE = (255,255,255)
 
 #Room1
-Gurtrude1 = GurtrudeClass(2, 200)
+Gurtrude1 = GurtrudeClass(2, 180)
 Rock1 = RockClass(200, 50)
 Rock2 = RockClass(300, 300)
 TreeBottom1 = TreeClass(500, 330)
@@ -223,14 +232,12 @@ TreeBottom3_group = pygame.sprite.GroupSingle(TreeBottom3)
 TreeBottom4_group = pygame.sprite.GroupSingle(TreeBottom4)
 
 #Room2
-Gurtrude2 = GurtrudeClass(2, 200)
 Bush1 = BushClass(140, 365)
 Bush2 = BushClass(363, 365)
 Bush3 = BushClass(222, 160)
 TreeBottom5 = TreeClass(44, 305)
 TreeBottom6 = TreeClass(503, 305)
 
-Gurtrude2_group = pygame.sprite.GroupSingle(Gurtrude2)
 Bush1_group = pygame.sprite.GroupSingle(Bush1)
 Bush2_group = pygame.sprite.GroupSingle(Bush2)
 Bush3_group = pygame.sprite.GroupSingle(Bush3)
@@ -279,6 +286,7 @@ def Room1():
     TreeTop(50, -270)
 
     #Room2
+
 def Room2():
     Gurtrude1.update1([Bush1, Bush2, Bush3], [TreeBottom5, TreeBottom6])
     Room2BG()
@@ -330,6 +338,7 @@ while running:
     # Game Keys
     if keys[pygame.K_k]:
         print('Gurtrude XY Pos:', Gurtrude1.rect.x, Gurtrude1.rect.y)
+        print('Gurtrude Velocity', Gurtrude1.velocity)
 
     if keys[pygame.K_i]:
         Constant += 1
@@ -374,7 +383,91 @@ while running:
         Room5()
     elif Constant == 6:
         Room6()
+        
+    # Room Changes
+    # Room 1
+    if Constant == 1:
+        if Gurtrude1.rect.x >= 570:
+            r = range(120, 250)
+            if Gurtrude1.rect.y in r:
+                Constant += 1
+                Gurtrude1 = GurtrudeClass(17, 150)
+                time.sleep(0.15)
+                
+    # Room 2
+    if Constant == 2:
+        if Gurtrude1.rect.x >= 570:
+            r = range(120, 180)
+            if Gurtrude1.rect.y in r:
+                Constant += 1
+                Gurtrude1 = GurtrudeClass(10, 175)
+                time.sleep(0.15)
+        if Gurtrude1.rect.x <= 3:
+            r = range(120, 190)
+            if Gurtrude1.rect.y in r:
+                Constant -= 1
+                Gurtrude1 = GurtrudeClass(560, 160)
+                time.sleep(0.15)
+                
+    # Room 3
+    if Constant == 3:
+        if Gurtrude1.rect.x <= 3:
+            r = range(140, 240)
+            if Gurtrude1.rect.y in r:
+                Constant -= 1
+                Gurtrude1 = GurtrudeClass(560, 150)
+                time.sleep(0.15)
+        if Gurtrude1.rect.y <= 3:
+            r = range(265, 340)
+            if Gurtrude1.rect.x in r:
+                Constant += 1
+                Gurtrude1 = GurtrudeClass(230, 390)
+                time.sleep(0.15)
+        if Gurtrude1.rect.y >= 395:
+            r = range(265, 330)
+            if Gurtrude1.rect.y in r:
+                Constant += 2
+                Gurtrude1 = GurtrudeClass(300, 10)
+                time.sleep(0.15)
+        if Gurtrude1.rect.x >= 570:
+            r = range(180, 230)
+            if Gurtrude1.rect.y in r:
+                Constant += 3
+                Gurtrude1 = GurtrudeClass(10, 200)
+                time.sleep(0.15)
     
+    # Room 4            
+    if Constant == 4:
+        if Gurtrude1.rect.y >= 395:
+            r = range(200, 280)
+            if Gurtrude1.rect.x in r:
+                Constant -= 1 
+                Gurtrude1 = GurtrudeClass(300, 10)
+                time.sleep(0.15)
+                
+    # Room 5           
+    if Constant == 5:
+        if Gurtrude1.rect.y >= 3:
+            r = range(260, 340)
+            if Gurtrude1.rect.x in r:
+                Constant -= 2
+                Gurtrude1 = GurtrudeClass(290, 390)
+                time.sleep(0.15)
+                
+    # Room 6            
+    if Constant == 6:
+        if Gurtrude1.rect.x >= 595:
+            r = range(140, 260)
+            if Gurtrude1.rect.y in r:
+                print('yeah')
+        if Gurtrude1.rect.x >= 3:
+            r = range(140, 280)
+            if Gurtrude1.rect.y in r:
+                Constant -= 3
+                Gurtrude1 = GurtrudeClass(590, 200)
+                time.sleep(0.15)
+        
+            
     # Draw inventory sprite if visible
     if inventory_visible:
         InventorySprite(296, 300)
