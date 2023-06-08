@@ -55,6 +55,10 @@ def TreeTop(x, y):
 Inventory_Sprite = pygame.image.load('textures/Inventory_sprite.png')
 def InventorySprite(x, y):
     surface.blit(Inventory_Sprite, (x, y))
+
+Room6Shad = pygame.image.load('textures/Room6_Shadow.png')
+def Room6Shadow():
+    surface.blit(Room6Shad, (0, 0))
     
 # Classes
 class GurtrudeClass(pygame.sprite.Sprite):
@@ -260,16 +264,38 @@ Bush7_group = pygame.sprite.GroupSingle(Bush7)
 Bush8_group = pygame.sprite.GroupSingle(Bush8)
 Bush9_group = pygame.sprite.GroupSingle(Bush9)
 TreeBottom7_group = pygame.sprite.GroupSingle(TreeBottom7)
-#Room4
 
+#Room4
+Rock3 = RockClass(100, 260)
+Rock4 = RockClass(200, 30)
+TreeBottom8 = TreeClass(465, 210)
+
+Rock3_group = pygame.sprite.GroupSingle(Rock3)
+Rock4_group = pygame.sprite.GroupSingle(Rock4)
+TreeBottom8_group = pygame.sprite.GroupSingle(TreeBottom8)
 #Room5
+Rock5 = RockClass(130, 60)
+TreeBottom9 = TreeClass(180, 180)
+TreeBottom10 = TreeClass(380, 180)
+
+Rock5_group = pygame.sprite.GroupSingle(Rock5)
+TreeBottom9_group = pygame.sprite.GroupSingle(TreeBottom9)
+TreeBottom10_group = pygame.sprite.GroupSingle(TreeBottom10)
 
 #Room6
+Rock6 = RockClass(50, 62)
+Rock7 = RockClass(250, 330)
+TreeBottom11 = TreeClass(120, 320)
+TreeBottom12 = TreeClass(400, 310)
+
+Rock6_group = pygame.sprite.GroupSingle(Rock6)
+Rock7_group = pygame.sprite.GroupSingle(Rock7)
+TreeBottom11_group = pygame.sprite.GroupSingle(TreeBottom11)
+TreeBottom12_group = pygame.sprite.GroupSingle(TreeBottom12)
 
 #Room7?
 
 # Room Def's (aka big mother fucker of code bruhge).
-    # Room1
 def Room1():
     Gurtrude1.update([Rock1, Rock2], [TreeBottom1, TreeBottom2, TreeBottom3, TreeBottom4])
     Room1BG(0, 0)
@@ -284,8 +310,6 @@ def Room1():
     TreeTop(300, -250)
     TreeTop(120, 0) 
     TreeTop(50, -270)
-
-    #Room2
 
 def Room2():
     Gurtrude1.update1([Bush1, Bush2, Bush3], [TreeBottom5, TreeBottom6])
@@ -313,16 +337,35 @@ def Room3():
     TreeTop(30, 0)
     
 def Room4():
-    Gurtrude1.update1([Bush1, Bush2, Bush3], [TreeBottom5, TreeBottom6])
+    Gurtrude1.update1([Rock3, Rock4], [TreeBottom8])
     Room4BG()
+    surface.blit(Gurtrude1.image, Gurtrude1.rect)
+    surface.blit(Rock3.image, Rock3.rect)
+    surface.blit(Rock4.image, Rock4.rect)
+    surface.blit(TreeBottom8.image, TreeBottom8.rect)
+    TreeTop(465, -100)
     
 def Room5():
-    Gurtrude1.update1([Bush1, Bush2, Bush3], [TreeBottom5, TreeBottom6])
+    Gurtrude1.update1([Rock5], [TreeBottom9, TreeBottom10])
     Room5BG()
+    surface.blit(Gurtrude1.image, Gurtrude1.rect)
+    surface.blit(Rock5.image, Rock5.rect)
+    surface.blit(TreeBottom9.image, TreeBottom9.rect)
+    surface.blit(TreeBottom10.image, TreeBottom10.rect)
+    TreeTop(180, -100)
+    TreeTop(380, -100)
     
 def Room6():
-    Gurtrude1.update1([Bush1, Bush2, Bush3], [TreeBottom5, TreeBottom6])
+    Gurtrude1.update1([Rock6, Rock7], [TreeBottom11, TreeBottom12])
     Room6BG()
+    surface.blit(Gurtrude1.image, Gurtrude1.rect)
+    surface.blit(Rock6.image, Rock6.rect)
+    surface.blit(Rock7.image, Rock7.rect)
+    surface.blit(TreeBottom11.image, TreeBottom11.rect)
+    surface.blit(TreeBottom12.image, TreeBottom12.rect)
+    TreeTop(400, 0)
+    TreeTop(120, 0)
+    Room6Shadow()
     
 while running:
     clock.tick(fps_limit)
@@ -421,11 +464,11 @@ while running:
             r = range(265, 340)
             if Gurtrude1.rect.x in r:
                 Constant += 1
-                Gurtrude1 = GurtrudeClass(230, 390)
+                Gurtrude1 = GurtrudeClass(230, 360)
                 time.sleep(0.15)
-        if Gurtrude1.rect.y >= 395:
+        if Gurtrude1.rect.y >= 370:
             r = range(265, 330)
-            if Gurtrude1.rect.y in r:
+            if Gurtrude1.rect.x in r:
                 Constant += 2
                 Gurtrude1 = GurtrudeClass(300, 10)
                 time.sleep(0.15)
@@ -438,7 +481,7 @@ while running:
     
     # Room 4            
     if Constant == 4:
-        if Gurtrude1.rect.y >= 395:
+        if Gurtrude1.rect.y >= 370:
             r = range(200, 280)
             if Gurtrude1.rect.x in r:
                 Constant -= 1 
@@ -447,7 +490,7 @@ while running:
                 
     # Room 5           
     if Constant == 5:
-        if Gurtrude1.rect.y >= 3:
+        if Gurtrude1.rect.y <= 3:
             r = range(260, 340)
             if Gurtrude1.rect.x in r:
                 Constant -= 2
@@ -460,7 +503,7 @@ while running:
             r = range(140, 260)
             if Gurtrude1.rect.y in r:
                 print('yeah')
-        if Gurtrude1.rect.x >= 3:
+        if Gurtrude1.rect.x <= 3:
             r = range(140, 280)
             if Gurtrude1.rect.y in r:
                 Constant -= 3
