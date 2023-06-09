@@ -12,9 +12,9 @@ pygame.display.set_caption('Chapter 1: The intro')
 
 #Song Loads
 mixer.music.load('Soundtrack/Forest.mp3')
+mixer.music.set_volume(0.5)
 
-mixer.music.set_volume(0.2)
-
+#Starting song play
 mixer.music.play()
 
 # Variables
@@ -471,12 +471,15 @@ while running:
             if Gurtrude1.rect.x in r:
                 Constant += 2
                 Gurtrude1 = GurtrudeClass(300, 10)
+                mixer.music.load('Soundtrack/WaterFlow.mp3')
+                mixer.music.play()
                 time.sleep(0.15)
         if Gurtrude1.rect.x >= 570:
             r = range(180, 230)
             if Gurtrude1.rect.y in r:
                 Constant += 3
                 Gurtrude1 = GurtrudeClass(10, 200)
+                mixer.music.stop()
                 time.sleep(0.15)
     
     # Room 4            
@@ -495,6 +498,8 @@ while running:
             if Gurtrude1.rect.x in r:
                 Constant -= 2
                 Gurtrude1 = GurtrudeClass(290, 390)
+                mixer.music.load('Soundtrack/Forest.mp3')
+                mixer.music.play()
                 time.sleep(0.15)
                 
     # Room 6            
@@ -508,6 +513,8 @@ while running:
             if Gurtrude1.rect.y in r:
                 Constant -= 3
                 Gurtrude1 = GurtrudeClass(590, 200)
+                mixer.music.load('Soundtrack/Forest.mp3')
+                mixer.music.play()
                 time.sleep(0.15)
         
             
