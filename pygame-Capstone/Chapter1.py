@@ -21,6 +21,7 @@ mixer.music.play()
 clock = pygame.time.Clock()
 fps_limit = 60
 Constant = 1
+Bool = False
 
 # Image def's
     #Room Image Def's
@@ -296,6 +297,7 @@ TreeBottom12_group = pygame.sprite.GroupSingle(TreeBottom12)
 #Room7?
 
 # Room Def's (aka big mother fucker of code bruhge).
+
 def Room1():
     Gurtrude1.update([Rock1, Rock2], [TreeBottom1, TreeBottom2, TreeBottom3, TreeBottom4])
     Room1BG(0, 0)
@@ -367,6 +369,14 @@ def Room6():
     TreeTop(120, 0)
     Room6Shadow()
     
+def switch(bruh):
+    if bruh == "something":
+        return "Bruh Bruhge Gman bruh "
+    elif bruh == "something2":
+        return "I <3 Code"
+    
+        
+
 while running:
     clock.tick(fps_limit)
     surface.fill(WHITE)
@@ -385,23 +395,17 @@ while running:
 
     if keys[pygame.K_i]:
         Constant += 1
-        time.sleep(1)
+        time.sleep(0.15)
         print(Constant)
     if keys[pygame.K_u]:
         Constant -= 1
-        time.sleep(1)
+        time.sleep(0.15)
         print(Constant)
-
+        
     # Inventory visibility
     if keys[pygame.K_e]:
         time.sleep(0.15)
         inventory_visible = not inventory_visible
-
-    # Normal key stuff
-    if keys[pygame.K_LSHIFT]:
-        Gurtrude1.velocity = 3
-    else:
-        Gurtrude1.velocity = 2
 
     # Gurtrude world boundaries
     if Gurtrude1.rect.x < 0:
@@ -481,7 +485,40 @@ while running:
                 Gurtrude1 = GurtrudeClass(10, 200)
                 mixer.music.stop()
                 time.sleep(0.15)
-    
+                
+        # Water
+        r1 = range(232, 362)
+        r2 = range(87, 278)
+
+        # Shout out gaming and Grant and Caleb and Newton and Scoobert
+        if Gurtrude1.rect.x in r1 and Gurtrude1.rect.y in r2:
+            # D KEY
+            if Gurtrude1.rect.x - 232 > 362 - Gurtrude1.rect.x and keys[pygame.K_d]:
+                Gurtrude1.velocity = 2
+            elif Gurtrude1.rect.x - 232 > 362 - Gurtrude1.rect.x and not keys[pygame.K_d]:
+                Gurtrude1.velocity = 0
+                
+            # A KEY
+            elif Gurtrude1.rect.x - 232 < 362 - Gurtrude1.rect.x and keys[pygame.K_a]:
+                Gurtrude1.velocity = 2
+            elif Gurtrude1.rect.x - 232 < 362 - Gurtrude1.rect.x and not keys[pygame.K_a]:
+                Gurtrude1.velocity = 0
+                
+            # S KEY
+            if Gurtrude1.rect.y - 87 > 278 - Gurtrude1.rect.y and keys[pygame.K_s]:
+                Gurtrude1.velocity = 2
+            elif Gurtrude1.rect.y - 87 > 278 - Gurtrude1.rect.y and not keys[pygame.K_s]:
+                Gurtrude1.velocity = 0
+            
+            # W KEY
+            elif Gurtrude1.rect.y - 87 < 278 - Gurtrude1.rect.y and keys[pygame.K_w]:
+                Gurtrude1.velocity = 2
+            elif Gurtrude1.rect.y - 87 > 278 - Gurtrude1.rect.y and not keys[pygame.K_w]:
+                Gurtrude1.velocity = 0
+                
+        else:
+            Gurtrude1.velocity = 2
+
     # Room 4            
     if Constant == 4:
         if Gurtrude1.rect.y >= 370:
