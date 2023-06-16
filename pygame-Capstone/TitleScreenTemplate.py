@@ -10,6 +10,9 @@ pygame.display.set_caption('Title Screen')
 clock = pygame.time.Clock()
 fps_limit = 60
 
+BG1 = pygame.image.load('textures/TitleBG.png')
+surface.blit(BG1, (0, 0))
+
     # Colours
 import col
 ColourST = col.AQUA
@@ -79,6 +82,7 @@ while running:
         ColourQT = col.BLACK
     else:
         ColourQT = col.AQUA
+        
 
     pygame.display.flip()
 pygame.quit()
