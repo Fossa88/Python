@@ -7,8 +7,6 @@ running = True
 surface = pygame.display.set_mode((width, height))
 pygame.display.set_caption('Title Screen')
 
-bg = pygame.image.load("Sprites/TitleBG.png")
-
 clock = pygame.time.Clock()
 fps_limit = 60
 
@@ -48,7 +46,7 @@ while running:
     QuitRectangle = pygame.draw.rect(surface, col.AQUA, (206, 250, 188, 32))
 
     #Text
-    draw_text("Title", text_font2, col.BLACK, width/2.9, 75)
+    draw_text("CapStone", text_font2, col.BLACK, width/3.1, 75)
     StartGame = draw_text("Start Game", text_font, col.BLACK, width/2.9, 150)
     draw_text(">                       <", text_font, ColourST, width/3.4, 148)
     SettingsTemp = draw_text("Settings", text_font, col.BLACK, width/2.9, 200)
@@ -62,7 +60,7 @@ while running:
             if MoRect.colliderect(Dope):
                 import Chapter1
             if MoRect.colliderect(SettingsRectangle):
-                import SettingsTemp
+                print("hi")
             if MoRect.colliderect(QuitRectangle):
                 pygame.quit()
 
