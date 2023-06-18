@@ -1,7 +1,6 @@
 import pygame
 from pygame import mixer
 mixer.init()
-import random
 pygame.init()
 import time
 
@@ -22,6 +21,13 @@ clock = pygame.time.Clock()
 fps_limit = 60
 Constant = 1
 Bool = False
+InvenPos = 1
+ItemCheckStick = False
+ItemCheckCutter = False
+StickCollect = False
+CutterCollect = False
+CutterFall = False
+CutterFall2 = False
 
 # Image def's
     #Room Image Def's
@@ -48,18 +54,34 @@ def Room5BG():
 BG6 = pygame.image.load('textures/Room6.png')
 def Room6BG():
     surface.blit(BG6, (0, 0))
+    
+BG7 = pygame.image.load('textures/Room7.png')
+def Room7BG():
+    surface.blit(BG7, (0, 0))
 
 TreeTrollFace = pygame.image.load('textures/TreeTop.png')
 def TreeTop(x, y):
     surface.blit(TreeTrollFace, (x, y))
 
-Inventory_Sprite = pygame.image.load('textures/Inventory_sprite.png')
+Inventory_Sprite = pygame.image.load('textures/Inventory_sprite1.png')
 def InventorySprite(x, y):
     surface.blit(Inventory_Sprite, (x, y))
 
 Room6Shad = pygame.image.load('textures/Room6_Shadow.png')
 def Room6Shadow():
     surface.blit(Room6Shad, (0, 0))
+    
+StickItem1 = pygame.image.load('textures/Stick.png')
+def StickItem(x, y):
+    surface.blit(StickItem1, (x, y))
+    
+StickItem2 = pygame.image.load('textures/StickInven.png')
+def StickItemInven():
+    surface.blit(StickItem2, (304, 305))
+    
+CutterItem2 = pygame.image.load('textures/CutterInven.png')
+def CutterItemInven():
+    surface.blit(CutterItem2, (404, 305))
     
 # Classes
 class GurtrudeClass(pygame.sprite.Sprite):
@@ -209,6 +231,20 @@ class TreeClass(pygame.sprite.Sprite):
     def y(self):
         return self.rect.y
 
+class CutterClass(pygame.sprite.Sprite):
+    def __init__(self, x, y):
+        super().__init__()
+        self.image = pygame.image.load('Textures/Cutters.png').convert_alpha()
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
+
+    def x(self):
+        return self.rect.x
+
+    def y(self):
+        return self.rect.y
+    
 # inventory sprite visibility
 inventory_visible = False
 
@@ -270,10 +306,14 @@ TreeBottom7_group = pygame.sprite.GroupSingle(TreeBottom7)
 Rock3 = RockClass(100, 260)
 Rock4 = RockClass(200, 30)
 TreeBottom8 = TreeClass(465, 210)
+Cutter1 = CutterClass(478, 76)
 
 Rock3_group = pygame.sprite.GroupSingle(Rock3)
 Rock4_group = pygame.sprite.GroupSingle(Rock4)
 TreeBottom8_group = pygame.sprite.GroupSingle(TreeBottom8)
+Cutter1_group = pygame.sprite.GroupSingle(Cutter1)
+
+
 #Room5
 Rock5 = RockClass(130, 60)
 TreeBottom9 = TreeClass(180, 180)
@@ -297,7 +337,6 @@ TreeBottom12_group = pygame.sprite.GroupSingle(TreeBottom12)
 #Room7?
 
 # Room Def's (aka big mother fucker of code bruhge).
-
 def Room1():
     Gurtrude1.update([Rock1, Rock2], [TreeBottom1, TreeBottom2, TreeBottom3, TreeBottom4])
     Room1BG(0, 0)
@@ -346,10 +385,14 @@ def Room4():
     surface.blit(Rock4.image, Rock4.rect)
     surface.blit(TreeBottom8.image, TreeBottom8.rect)
     TreeTop(465, -100)
+    if CutterCollect == False:
+        surface.blit(Cutter1.image, Cutter1.rect)
     
 def Room5():
     Gurtrude1.update1([Rock5], [TreeBottom9, TreeBottom10])
     Room5BG()
+    if StickCollect == False:
+        StickItem(294, 202)
     surface.blit(Gurtrude1.image, Gurtrude1.rect)
     surface.blit(Rock5.image, Rock5.rect)
     surface.blit(TreeBottom9.image, TreeBottom9.rect)
@@ -369,14 +412,6 @@ def Room6():
     TreeTop(120, 0)
     Room6Shadow()
     
-def switch(bruh):
-    if bruh == "something":
-        return "Bruh Bruhge Gman bruh "
-    elif bruh == "something2":
-        return "I <3 Code"
-    
-        
-
 while running:
     clock.tick(fps_limit)
     surface.fill(WHITE)
@@ -392,6 +427,8 @@ while running:
     if keys[pygame.K_k]:
         print('Gurtrude XY Pos:', Gurtrude1.rect.x, Gurtrude1.rect.y)
         print('Gurtrude Velocity', Gurtrude1.velocity)
+        print('YEP', CutterFall)
+        time.sleep(0.15)
 
     if keys[pygame.K_i]:
         Constant += 1
@@ -402,20 +439,57 @@ while running:
         time.sleep(0.15)
         print(Constant)
         
-    # Inventory visibility
-    if keys[pygame.K_e]:
+    # Inventory stuff
+        # Inventory visibility Key
+    if keys[pygame.K_q]:
         time.sleep(0.15)
         inventory_visible = not inventory_visible
+        
+        # Inventory Switch Key
+    if keys[pygame.K_r]:
+        InvenPos += 1
+        if InvenPos == 4:
+            InvenPos = 1
+        if InvenPos == 1:
+            Inventory_Sprite = pygame.image.load('textures/Inventory_sprite1.png')
+        elif InvenPos == 2:
+            Inventory_Sprite = pygame.image.load('textures/Inventory_sprite2.png')
+        elif InvenPos == 3:
+            Inventory_Sprite = pygame.image.load('textures/Inventory_sprite3.png')
+        time.sleep(0.15)
+        print('InvenPos', InvenPos)
+        
+        # Inventory Use key
+    if keys[pygame.K_e]:
+        if ItemCheckStick == True:
+            StickCollect = True
+        if ItemCheckCutter == True:
+            CutterCollect = True
+        if CutterFall == True:
+            Cutter1.rect.y =+ 350
+            CutterFall2 = True
 
+        
     # Gurtrude world boundaries
-    if Gurtrude1.rect.x < 0:
-        Gurtrude1.rect.x = 1
-    if Gurtrude1.rect.x > 570:
-        Gurtrude1.rect.x = 569
-    if Gurtrude1.rect.y < 0:
-        Gurtrude1.rect.y = 1
-    if Gurtrude1.rect.y > 370:
-        Gurtrude1.rect.y = 369
+    if Constant == 5:
+        if Gurtrude1.rect.x < 116:
+            Gurtrude1.rect.x = 117
+        if Gurtrude1.rect.x > 476:
+            Gurtrude1.rect.x = 475
+        if Gurtrude1.rect.y < 0:
+            Gurtrude1.rect.y = 1
+        if Gurtrude1.rect.y > 316:
+            Gurtrude1.rect.y = 315
+    else:
+        if Gurtrude1.rect.x < 0:
+            Gurtrude1.rect.x = 1
+        if Gurtrude1.rect.x > 570:
+            Gurtrude1.rect.x = 569
+        if Gurtrude1.rect.y < 0:
+            Gurtrude1.rect.y = 1
+        if Gurtrude1.rect.y > 370:
+            Gurtrude1.rect.y = 369 
+        
 
     # Image blits
     if Constant == 1:
@@ -528,17 +602,52 @@ while running:
                 Gurtrude1 = GurtrudeClass(300, 10)
                 time.sleep(0.15)
                 
+        # To get cutters out of tree
+        ry1 = range(212, 294)
+        rx1 = range(436, 540)
+        
+        if Gurtrude1.rect.y in ry1:
+            if Gurtrude1.rect.x in rx1:
+                if StickCollect == True:
+                    if InvenPos == 1:
+                        CutterFall = True
+
+        if Gurtrude1.rect.y not in ry1:
+            CutterFall = False
+        elif Gurtrude1.rect.x not in rx1:
+            CutterFall = False
+            
+        ry2 = range(326, 369)
+        rx2 = range(462, 506)
+        
+        if Gurtrude1.rect.y in ry2:
+            if Gurtrude1.rect.x in rx2:
+                if CutterFall2 == True:
+                    ItemCheckCutter = True
+        else:
+            ItemCheckCutter = False
+                
     # Room 5           
     if Constant == 5:
         if Gurtrude1.rect.y <= 3:
             r = range(260, 340)
             if Gurtrude1.rect.x in r:
                 Constant -= 2
-                Gurtrude1 = GurtrudeClass(290, 390)
+                Gurtrude1 = GurtrudeClass(290, 360)
+                print(Constant)
                 mixer.music.load('Soundtrack/Forest.mp3')
                 mixer.music.play()
                 time.sleep(0.15)
                 
+        ry = range(166, 220)
+        rx = range(173, 319)
+                 
+        if Gurtrude1.rect.y in ry:
+            if Gurtrude1.rect.x in rx:
+                    ItemCheckStick = True
+        else:
+            ItemCheckStick = False
+                       
     # Room 6            
     if Constant == 6:
         if Gurtrude1.rect.x >= 595:
@@ -553,11 +662,15 @@ while running:
                 mixer.music.load('Soundtrack/Forest.mp3')
                 mixer.music.play()
                 time.sleep(0.15)
-        
             
     # Draw inventory sprite if visible
     if inventory_visible:
         InventorySprite(296, 300)
+        if StickCollect == True:
+            StickItemInven()
+        if CutterCollect == True:
+            CutterItemInven()
+            
     
     pygame.display.flip()
 
