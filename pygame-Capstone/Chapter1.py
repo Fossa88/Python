@@ -28,6 +28,12 @@ StickCollect = False
 CutterCollect = False
 CutterFall = False
 CutterFall2 = False
+Bush1Cut = False
+Bush2Cut = False
+TimerRoom8 = 0
+TimerRoom7 = 0
+BushCut3 = False
+BushCut4 = False
 
 # Image def's
     #Room Image Def's
@@ -58,6 +64,14 @@ def Room6BG():
 BG7 = pygame.image.load('textures/Room7.png')
 def Room7BG():
     surface.blit(BG7, (0, 0))
+    
+BG8 = pygame.image.load('textures/Room8.png')
+def Room8BG():
+    surface.blit(BG8, (0, 0))
+    
+Room8TextYEP = pygame.image.load('textures/Room8Text.png')
+def Room8Text(x, y):
+    surface.blit(Room8TextYEP, (x, y))
 
 TreeTrollFace = pygame.image.load('textures/TreeTop.png')
 def TreeTop(x, y):
@@ -82,6 +96,10 @@ def StickItemInven():
 CutterItem2 = pygame.image.load('textures/CutterInven.png')
 def CutterItemInven():
     surface.blit(CutterItem2, (404, 305))
+    
+BushCutter = pygame.image.load('textures/BushCut.png')
+def BushCut(x, y):
+    surface.blit(BushCutter, (x, y))
     
 # Classes
 class GurtrudeClass(pygame.sprite.Sprite):
@@ -363,6 +381,8 @@ def Room2():
     surface.blit(TreeBottom6.image, TreeBottom6.rect)
     TreeTop(44, 0)
     TreeTop(503, 0)
+    if BushCut4 == False:
+        BushCut(250, 334)
 
 def Room3():
     Gurtrude1.update1([Bush7, Bush8, Bush9, Bush4, Bush5, Bush6], [TreeBottom7])
@@ -376,6 +396,8 @@ def Room3():
     surface.blit(Bush6.image, Bush6.rect)
     surface.blit(TreeBottom7.image, TreeBottom7.rect)
     TreeTop(30, 0)
+    if Bush2Cut == False:
+        BushCut(549, 170)
     
 def Room4():
     Gurtrude1.update1([Rock3, Rock4], [TreeBottom8])
@@ -412,6 +434,16 @@ def Room6():
     TreeTop(120, 0)
     Room6Shadow()
     
+def Room7():
+    Room7BG()
+    if TimerRoom7 > 300:
+        r = range()
+    
+def Room8():
+    Room8BG()
+    if TimerRoom8 > 300:
+        Room8Text(50, 150)
+    
 while running:
     clock.tick(fps_limit)
     surface.fill(WHITE)
@@ -427,7 +459,7 @@ while running:
     if keys[pygame.K_k]:
         print('Gurtrude XY Pos:', Gurtrude1.rect.x, Gurtrude1.rect.y)
         print('Gurtrude Velocity', Gurtrude1.velocity)
-        print('YEP', CutterFall)
+        print('YEP', TimerRoom8)
         time.sleep(0.15)
 
     if keys[pygame.K_i]:
@@ -468,6 +500,10 @@ while running:
         if CutterFall == True:
             Cutter1.rect.y =+ 350
             CutterFall2 = True
+        if Bush1Cut == True:
+            Bush2Cut = True
+        if BushCut3 == True:
+            BushCut4 = True
 
         
     # Gurtrude world boundaries
@@ -504,6 +540,12 @@ while running:
         Room5()
     elif Constant == 6:
         Room6()
+    elif Constant == 7:
+        Room7()
+        TimerRoom7 += 1
+    elif Constant == 8:
+        Room8()
+        TimerRoom8 += 1
         
     # Room Changes
     # Room 1
@@ -529,6 +571,33 @@ while running:
                 Constant -= 1
                 Gurtrude1 = GurtrudeClass(560, 160)
                 time.sleep(0.15)
+        if Gurtrude1.rect.y >= 370:
+            r = range(235, 360)
+            if Gurtrude1.rect.x in r:
+                Constant += 5
+                Gurtrude1 = GurtrudeClass(300, 10)
+                mixer.music.stop() 
+                time.sleep(0.15)
+                
+        ry1 = range(338, 340)
+        rx1 = range(240, 334)
+            
+        if Gurtrude1.rect.y in ry1:
+            if Gurtrude1.rect.x in rx1:
+                if BushCut4 == False:
+                    Gurtrude1.rect.y = 336
+                    
+        ry2 = range(322, 342)
+        rx2 = range(224, 334)
+        
+        if Gurtrude1.rect.x in rx2:
+            if Gurtrude1.rect.y in ry2:
+                if BushCut3 == False:
+                    if InvenPos == 2:
+                        if CutterCollect == True:
+                            BushCut3 = True
+        else:
+            BushCut3 = False
                 
     # Room 3
     if Constant == 3:
@@ -592,6 +661,26 @@ while running:
                 
         else:
             Gurtrude1.velocity = 2
+            
+        ry1 = range(180, 224)
+        rx1 = range(524, 526)
+        
+        if Gurtrude1.rect.y in ry1:
+            if Gurtrude1.rect.x in rx1:
+                if Bush2Cut == False:
+                    Gurtrude1.rect.x = 522
+                    
+        ry2 = range(162 ,214)
+        rx2 = range(506, 522)
+        
+        if Gurtrude1.rect.y in ry2:
+            if Gurtrude1.rect.x in rx2:
+                if Bush1Cut == False:
+                    if InvenPos == 2:
+                        if CutterCollect == True:
+                            Bush1Cut = True
+        else:
+            Bush1Cut = False
 
     # Room 4            
     if Constant == 4:
@@ -650,10 +739,6 @@ while running:
                        
     # Room 6            
     if Constant == 6:
-        if Gurtrude1.rect.x >= 595:
-            r = range(140, 260)
-            if Gurtrude1.rect.y in r:
-                print('yeah')
         if Gurtrude1.rect.x <= 3:
             r = range(140, 280)
             if Gurtrude1.rect.y in r:
@@ -662,6 +747,14 @@ while running:
                 mixer.music.load('Soundtrack/Forest.mp3')
                 mixer.music.play()
                 time.sleep(0.15)
+                
+        elif Gurtrude1.rect.x >= 568:
+            r = range(140, 280)
+            if Gurtrude1.rect.y in r:
+                Constant += 2
+                mixer.music.load('Soundtrack/Footstep.mp3')
+                mixer.music.play()
+                
             
     # Draw inventory sprite if visible
     if inventory_visible:
